@@ -3,18 +3,14 @@ import { prismaClient } from "../clients/db";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { redisclient } from "../clients/redis";
 
-
+import { fromEnv } from "@aws-sdk/credential-providers";
 interface TweetPayload {
     content : string 
     imageURL : string | undefined
     id : string
 }
 
-const s3Client = new S3Client({
-    region : process.env.AWS_DEFAULT_REGION ||  "ap-south-1"  , 
-    credentials : {accessKeyId : process.env.AWS_ACCESS_KEY_ID || "AKIAZJNTXN5ZLLIHOKDD"  ,
-         secretAccessKey : process.env.AWS_SECRET_ACCESS_KEY || "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"}
-})
+const s3Client = new S3Client({})
 
 export class TweetService {
 
